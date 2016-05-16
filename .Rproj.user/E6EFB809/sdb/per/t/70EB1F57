@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"1928-1969間,小兒麻痺在美國各州的發生率變化\"\nauthor: \"林瑞鈞 B0144217\"\n---\n\n#資料前處理\n```{r warning=F,message=F}\nif (!require('ggplot2')){\n    install.packages(\"ggplot2\")\n    library(ggplot2)\n}\n```\n\n##把資料讀進來\n```{r results='hide',warning=F,message=F}\npolio<-read.csv(\"POLIO_Incidence.csv\",stringsAsFactors=F)\nhead(polio)\n\n```\n\n##將寬表格轉為長表格\n```{r warning=F,message=F}\nlibrary(reshape2)\n\npolio.m<-melt(polio,id.vars=c('YEAR','WEEK'))\nhead(polio.m)\n```\n\n##處理缺值\n```{r warning=F,message=F}\npolio.m[polio.m$value==\"-\",]$value<-NA\npolio.m$value<-as.numeric(polio.m$value)\n```\n\n##計算年度發生率\n```{r warning=F,message=F}\npolio.sumYear<-aggregate(value~YEAR+variable,data=polio.m,FUN=sum,na.rm=F)\nhead(polio.sumYear)\n```\n#視覺畫呈現\n\n##解釋如何選擇圖形種類\n選擇\"區塊著色\"  左方可清楚顯示城市名稱\n下方表示年份    右方則設定顏色表示數量\n\n##程式碼\n```{r fig.show='hide'}\nlibrary(ggplot2)\n\nggplot(polio.sumYear,aes(YEAR,variable))+\ngeom_tile(aes(fill=value),colour=\"white\")+\nscale_fill_gradient(low=\"lightyellow\",high=\"blue\")+#數值低:白色\ngeom_vline(xintercept = 1955,colour=\"black\", linetype = \"longdash\")#疫苗\n\n```\n\n##圖形呈現\n```{r echo=F,warning=F,message=F}\nlibrary(ggplot2)\n\nggplot(polio.sumYear,aes(YEAR,variable))+\ngeom_tile(aes(fill=value),colour=\"white\")+\nscale_fill_gradient(low=\"lightyellow\",high=\"blue\")+#數值低:白色\ngeom_vline(xintercept = 1955,colour=\"black\", linetype = \"longdash\")#疫苗\n\n```\n\n##解釋圖形\n可看見1945~1955間小兒麻痺的人數較多 有疫苗後人數就較少超過50人了\n",
+    "created" : 1463410038413.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "660504159",
+    "id" : "70EB1F57",
+    "lastKnownWriteTime" : 1463421906,
+    "last_content_update" : 1463421906050,
+    "path" : "C:/Users/Lin/Desktop/R0516/R0516.Rmd",
+    "project_path" : "R0516.Rmd",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

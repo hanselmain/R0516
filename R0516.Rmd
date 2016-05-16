@@ -1,0 +1,69 @@
+---
+title: "1928-1969間,小兒麻痺在美國各州的發生率變化"
+author: "林瑞鈞 B0144217"
+---
+
+#資料前處理
+```{r warning=F,message=F}
+if (!require('ggplot2')){
+    install.packages("ggplot2")
+    library(ggplot2)
+}
+```
+
+##把資料讀進來
+```{r results='hide',warning=F,message=F}
+polio<-read.csv("POLIO_Incidence.csv",stringsAsFactors=F)
+head(polio)
+
+```
+
+##將寬表格轉為長表格
+```{r warning=F,message=F}
+library(reshape2)
+
+polio.m<-melt(polio,id.vars=c('YEAR','WEEK'))
+head(polio.m)
+```
+
+##處理缺值
+```{r warning=F,message=F}
+polio.m[polio.m$value=="-",]$value<-NA
+polio.m$value<-as.numeric(polio.m$value)
+```
+
+##計算年度發生率
+```{r warning=F,message=F}
+polio.sumYear<-aggregate(value~YEAR+variable,data=polio.m,FUN=sum,na.rm=F)
+head(polio.sumYear)
+```
+#視覺畫呈現
+
+##解釋如何選擇圖形種類
+選擇"區塊著色"  左方可清楚顯示城市名稱
+下方表示年份    右方則設定顏色表示數量
+
+##程式碼
+```{r fig.show='hide'}
+library(ggplot2)
+
+ggplot(polio.sumYear,aes(YEAR,variable))+
+geom_tile(aes(fill=value),colour="white")+
+scale_fill_gradient(low="lightyellow",high="blue")+#數值低:白色
+geom_vline(xintercept = 1955,colour="black", linetype = "longdash")#疫苗
+
+```
+
+##圖形呈現
+```{r echo=F,warning=F,message=F}
+library(ggplot2)
+
+ggplot(polio.sumYear,aes(YEAR,variable))+
+geom_tile(aes(fill=value),colour="white")+
+scale_fill_gradient(low="lightyellow",high="blue")+#數值低:白色
+geom_vline(xintercept = 1955,colour="black", linetype = "longdash")#疫苗
+
+```
+
+##解釋圖形
+可看見1945~1955間小兒麻痺的人數較多 有疫苗後人數就較少超過50人了

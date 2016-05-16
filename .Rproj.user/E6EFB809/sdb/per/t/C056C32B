@@ -1,0 +1,28 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1463412702662.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "C056C32B",
+    "lastKnownWriteTime" : 7308604914264011873,
+    "last_content_update" : 1463412702662,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "29how6aks7",
+        "caption" : "polio.sumYear",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=polio.sumYear&cache_key=29how6aks7",
+        "displayedObservations" : 1860,
+        "environment" : "",
+        "object" : "polio.sumYear",
+        "totalObservations" : 1860,
+        "variables" : 3
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}
